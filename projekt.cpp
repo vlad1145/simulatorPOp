@@ -6,6 +6,8 @@
 #include<stdio.h>
 #include"projekt.h"
 
+#include"naglowki.h"
+
 using namespace std;
 
 int pozywienie;
@@ -80,5 +82,69 @@ void Mikroby:: skonaj()
 {
 
 }
-
+///////////////////////////////
+int Samozywne::getH2O()
+{
+	if (polee==woda)//miejsce wody na planszy
+		zebrane_H2O++;
+	return zebrane_H2O;
+}
+int Samozywne::getCO2()
+{
+	if (polee==dwutlenek_wegla)//miejsce dwutlenku na planszy
+		zebrane_CO2++;
+	return zebrane_CO2;
+}
+int Samozywne::getZatrucie()
+{
+	if (polee==etanol || polee==metan) //miejsce etanolu lub metanu
+		zatrucie++;
+	return zatrucie;
+}
+int Samozywne::getMaxZatrucie()
+{
+	//przyjmijmy 
+	maxymalne_zatrucie=10;
+	if (zatrucie==maxymalne_zatrucie)
+	{
+		Mikroby::skonaj();
+		zatrucie=0;
+	}	
+	return maxymalne_zatrucie;
+}
+void Samozywne::odtruj()
+{
+	if (polee==woda || pole==dwutlenek_wegla)
+		zatrucie--;
+}
+//
+int Cudzozywne::getGlukoza()
+{
+	return zebrana_glukoza;
+}
+int Cudzozywne::getTlen()
+{
+	return zebrany_tlen;
+}
+int Cudzozywne::getZatrucie()
+{
+	return zatrucie;
+}
+int Cudzozywne::getMaxZatrucie()
+{
+	return maxymalne_zatrucie;
+}
+void Cudzozywne::odtruj()
+{
+	
+}
+//
+int Reducenci::getEtanol()
+{
+	return zebrany_etanol;
+}
+int Reducenci::getMetan()
+{
+	return zebrany_metan;
+}
 
