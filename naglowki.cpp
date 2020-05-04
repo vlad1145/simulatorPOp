@@ -1,11 +1,11 @@
 #include"naglowki.h"
 using namespace std;
 //pola i metody
-int Mikroby::getEnergia()
+int Mikroby::getEnergia() //u Agaty
 {
 	return energia;
 }
-void Mikroby::zbierz()
+void Mikroby::zbierz()//u Agaty
 {
 	
 }
