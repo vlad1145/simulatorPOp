@@ -113,7 +113,7 @@ class Init{
 				cin>>filename;		
 			}while(filename=="");
 
-			if(filename.substr(filename.length()-4,4)!=".txt") filename = filename + ".txt";
+			if(filename.length()<4 || filename.substr(filename.length()-4,4)!=".txt") filename = filename + ".txt";
 
 			ifstream file_read(filename);
 			if(!file_read.is_open()){
@@ -340,6 +340,50 @@ Init::initSource Init::source;
 //Samoż.- S
 //Cudzoż. U
 //Reduc.  R
+
+class CSVWriter{
+	static void write(string filename,Object*** plansza,int height,int width){
+		if(filename.length()<4 || filename.substr(filename.length()-4,4)!=".csv") filename = filename + ".csv";	
+		ofstream file_write(filename);
+		file_write<<"Wodor,Wegiel,Tlen,Metan,Etanol,Woda,Dwutlenek,Glukoza,Samozywne,Cudzozywne,Reducenci\n";
+		file_write<<"H,C,O,M,E,W,D,G,S,U,R\n";
+		int H=0,C=0,O=0,M=0,E=0,W=0,D=0,G=0,S=0,U=0,R=0;	
+		
+		for(int i=0;i<height;i++){
+			for(int j=0;j<width;j++){
+				if(plansza[i][j]!=NULL){
+					string type = plansza[i][j]->toString();
+					switch(type[0]){
+						case 'H':
+							H++; break;
+						case 'C':
+							C++; break;
+						case 'O':
+							O++; break;
+						case 'M':
+							M++; break;
+						case 'E':
+							E++; break;
+						case 'W':
+							W++; break;
+						case 'D':
+							D++; break;
+						case 'G':
+							G++; break;
+						case 'S':
+							S++; break;
+						case 'U':
+							U++; break;
+						case 'R':
+							R++; break;
+
+					}
+				}
+			}
+		}
+		file_write<<H<<","<<C<<","<<O<<","<<M<<","<<E<<","<<W<<","<<D<<","<<G<<","<<S<<","<<U<<","<<R<<"\n";
+	}
+};
 
 int main(){
 
