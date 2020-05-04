@@ -82,7 +82,7 @@ void Mikroby:: skonaj()
 {
 
 }
-///////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 int Samozywne::getH2O()
 {
 	if (polee==woda)//miejsce wody na planszy
@@ -117,7 +117,9 @@ void Samozywne::odtruj()
 	if (polee==woda || pole==dwutlenek_wegla)
 		zatrucie--;
 }
-//
+
+/////////////////////////////
+
 int Cudzozywne::getGlukoza()
 {
 	return zebrana_glukoza;
