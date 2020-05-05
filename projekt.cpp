@@ -6,21 +6,16 @@
 #include<stdio.h>
 #include"projekt.h"
 
-#include"naglowki.h"
-
 using namespace std;
-
+char pole[35][35];
 int pozywienie;
 int trucizna;
-int polee;
-char organizm;
+int wspolrzednaX;
+int wspolrzednaY;
+int wysokosc;
+int szerokosc;
+int organizm;
 int energia_p;
-char metanol=109;
-char etanol=101;
-char woda=119;
-char tlen=116;
-char glukoza=103;
-char dwutlenek_wegla=100;
 
 bool zdolnosc_ruchu=true;
 int energia;
@@ -43,32 +38,51 @@ void nieZnika(int x, int y)
 	SetConsoleCursorPosition(hCon, dwPos);
 }
 
-int Mikroby:: get_energia()
+int Mikroby:: get_energia(int polee)
 {
 
     if(polee==pozywienie)
     {
         energia++;
         pozywienie--;
+        if(energia>=20)
+        {
+            energia=1;
+            organizm++;
+        }
     }
     else if(polee==trucizna)
     {
-        energia--;
+        energia-=10;//trucizna ma wartosc -10 energii 
         trucizna--;
+        if(energia<=0)
+        {
+            organizm--;
+        }
     }
 return energia;
 }
 
-void Mikroby:: zbierz()
+void Mikroby:: zbierz(int pozywienie, int trucizna)
 {
+zebrane_H20=pozywienie;
+zebrane_CO2=pozywienie;
+zebrana_glukoza=pozywienie;
+zebrany_tlen=pozywienie;
+zebrany_etanol=trucizna;
+zebrany_metanol=trucizna;
 if(polee==pozywienie)
 {
-    get_energia();
+    Mikroby:: get_energia(polee);
+}
+else if(polee==trucizna)
+{
+    Mikroby::get_energia(polee);
 }
 }
 
 
-void Mikroby:: przerobi()
+void Mikroby:: przerob()
 {
 
 }
@@ -76,12 +90,49 @@ void Mikroby:: przerobi()
 void Mikroby:: podziel(int x)
 {
 
+if(energia==x*energia_p)
+{
+do {
+ wspolrzednaX=rand()%szerokosc;
+ wspolrzednaY=rand()%wysokosc;
+ } while((pole[wspolrzednaX][wspolrzednaY]!=trucizna)&&(pole[wspolrzednaX][wspolrzednaY]!=pozywienie)&&(pole[wspolrzednaX][wspolrzednaY]!=organizm));
+}
 }
 
 void Mikroby:: skonaj()
 {
+if(energia<=0)
+{
+organizm--;
+}
+else if(energia>=20)
+{
+    organizm ++;
+}
+return organizm;
+}
+
+void Samozywne::odtruj()
+{
+if((energia>0)&&(polee==pozywienie))
+{
+    energia++;
+    if(energia>=20)
+    {
+        energia=0;
+        organizm++;
+    }
+}
+}
+
+void Cudzozywne::odtruj()
+{
 
 }
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////
 int Samozywne::getH2O()
 {
